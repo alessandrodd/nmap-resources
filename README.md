@@ -19,6 +19,10 @@ Based on Diman Todorov's http-title script (all thanks to him)
      - *-p 80,443*  =>  scan ports 80 and 443 (default for HTTP and HTTPS)
      - *192.168.0.0/16*  =>  scan subnet 
      - *--min-hostgroup 4096 --min-parallelism 1024*  =>  maximize parallel execution (set lower values or omit for more reliability)
+     - *--script=./http-title-matcher*  =>  load http-tite-matcher script from the current folder
+     - *--script-args 'http-title-matcher.match=hello world, http-title-matcher.case-insensitive'*  =>  match any website that contains "hello world" in the title, case insensitive
+     - *-oX my_scan_dump.xml*  =>  save results in an handy xml file
+
 
 Details:
 
