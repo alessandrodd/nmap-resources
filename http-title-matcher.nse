@@ -13,6 +13,16 @@ http library.
 HTTPS is transparently supported.
 
 Based on Diman Todorov's http-title script (all thanks to him)
+
+example: sudo nmap -p 80,443 192.168.0.0/16 --min-hostgroup 4096 --min-parallelism 1024 --script=./http-title-matcher --script-args 'http-title-matcher.match=hello world, http-title-matcher.case-insensitive' -oX my_scan_dump.xml
+
+-p 80,443 : scan ports 80 and 443 (default for HTTP and HTTPS)
+192.168.0.0/16 : scan subnet 
+--min-hostgroup 4096 --min-parallelism 1024 : maximize parallel execution (set lower values or omit for more reliability)
+--script=./http-title-matcher : load http-tite-matcher script from the current folder
+--script-args 'http-title-matcher.match=hello world, http-title-matcher.case-insensitive' : match any website that contains "hello world" in the title, case insensitive
+-oX my_scan_dump.xml : save results in an handy xml file
+
 ]]
 
 ---
@@ -81,6 +91,8 @@ action = function(host, port)
     newhostname = string.lower(host.name)
   end
   if match == nil or match == '' or (newtitle ~= nil and string.match(newtitle, match)) or (checkhostname and newhostname ~= nil and string.match(newhostname, match)) then
+
+    print('\27[31m**********MATCH FOUND: ' .. host.ip .. '**********\27[0m')
 
     local display_title = title
     
